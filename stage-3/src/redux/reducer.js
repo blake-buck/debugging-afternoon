@@ -1,4 +1,5 @@
 import * as productsController from './productsController';
+import axios from 'axios';
 
 // Constants
 const ADD_TO_SHOPPING_CART = "ADD_TO_SHOPPING_CART";
@@ -12,27 +13,6 @@ let initialState = {
     shoppingCart: []
 }
 
-// Reducer
-export default function reducer(state=initialState, action) {
-    switch(action.type) {
-        case GET_ALL_PRODUCTS_PENDING:
-            return Object.assign({}, state, {loading: true});
-
-        case GET_ALL_PRODUCTS_FULFILLED:
-            return Object.assign({}, state, {loading: false, products: action.payload})
-
-        case ADD_TO_SHOPPING_CART:
-            return Object.assign({}, state, {shoppingCart: [...state.shoppingCart, action.payload]});
-
-        case REMOVE_FROM_SHOPPING_CART:
-            let newArray = state.shoppingCart.slice();
-            newArray.splice(action.index, 1);
-            return Object.assign({}, {shoppingCart: newArray});
-            
-        defualt:
-            return state;
-    }
-}
 
 // Action Creators
 export function addToShoppingCart(product) {
@@ -55,3 +35,30 @@ export function getAllProducts(products) {
         payload: productsController.getAllProducts()
     }
 }
+
+// Reducer
+function reducer(state=initialState, action) {
+	console.log(action.type);
+    switch(action.type) {
+        case GET_ALL_PRODUCTS_PENDING:
+            return Object.assign({}, state, {loading: true});
+
+        case GET_ALL_PRODUCTS_FULFILLED:
+            return Object.assign({}, state, {loading: false, products: action.payload})
+
+        case ADD_TO_SHOPPING_CART:
+            return Object.assign({}, state, {shoppingCart: [...state.shoppingCart, action.payload]});
+
+        case REMOVE_FROM_SHOPPING_CART:
+            let newArray = state.shoppingCart.slice();
+            newArray.splice(action.index, 1);
+            return Object.assign({}, {shoppingCart: newArray});
+            
+        default:
+            return state;
+    }
+}
+
+
+
+export default reducer;

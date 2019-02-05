@@ -1,17 +1,20 @@
 import React, { Component } from 'react';
 import './StoreFront.css';
 import { connect } from 'react-redux';
-import { addToShoppingCart, getAllProducts } from '../../redux/reducer';
+import axios from 'axios';
+import {addToShoppingCart, getAllProducts} from '../../redux/reducer';
 
 class StoreFront extends Component {
+	constructor(props){
+		super(props);
+	}
 
     componentDidMount() {
-        this.props.getAllProducts();
+		this.props.getAllProducts();
     }
 
     render() {
-        console.log(this.props.products);
-        let productDisplay = this.props.products.map((element, index) => {
+       let productDisplay = this.props.products.map((element, index) => {
             return (
                 <div className="product-container" key={index}>
                     <h2>{element.title}</h2>
@@ -24,17 +27,17 @@ class StoreFront extends Component {
         })
         return (
             <div className="storefront-container">
-                {productDisplay}
+			{productDisplay}
             </div>
         )
     }
 }
 
-function mapStateToProps(state) {
+const mapToState =(state) =>{
     return {
         products: state.products,
-        loading: state.loading,
+        loading:  state.loading,
     }
 }
 
-export default connect(mapStateToProps, {addToShoppingCart, getAllProducts})(StoreFront);
+export default connect(mapToState, {addToShoppingCart, getAllProducts})(StoreFront);

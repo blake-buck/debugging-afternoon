@@ -1,4 +1,9 @@
 import reducer from './reducer';
-import reduxPromiseMiddleware from 'redux-promise-middleware';
+import {createStore, applyMiddleware, compose} from 'redux';
+import promiseMiddleware from 'redux-promise-middleware';
 
-export default createStore(reducer, applyMiddleware(reduxPromiseMiddleware()));
+
+
+let storeMiddleware = compose(applyMiddleware(promiseMiddleware()))
+
+export default createStore(reducer, storeMiddleware);

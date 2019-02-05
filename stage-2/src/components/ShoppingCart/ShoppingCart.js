@@ -9,25 +9,33 @@ class ShoppingCart extends Component {
             shoppingCart: this.props.shoppingCart
         }
     }
-
+	
+	componentDidMount(){
+		console.log(this.props.shoppingCart);
+		this.setState({shoppingCart:this.props.shoppingCart});
+	}
+	/*
     componentWillReceiveProps(nextProps) {
+		console.log(nextProps);
         this.setState({
             shoppingCart: nextProps.shoppingCart
         })
-    }
+    }*///React docs say this is legacy code that is unsafe, therefore it should not be used
 
     render() {
         let shoppingCartDisplay = this.state.shoppingCart.map((element, index) => {
-            <div className="shopping-cart-product-container">
-                <img src={element.image} alt="" />
-                <div className="shopping-cart-info">
-                    <h2>{element.title}</h2>
-                    <h2>{"$" + element.price + ".00"}</h2>
-                    <div className="shopping-cart-button-container">
-                        <button className="shopping-cart-button" onClick={() => this.props.removeFromShoppingCart(element)}>Remove From Shopping Cart</button>
-                    </div>
-                </div>
-            </div>
+			return(
+				<div className="shopping-cart-product-container" key={index}>
+					<img src={element.image} alt="" />
+					<div className="shopping-cart-info">
+						<h2>{element.title}</h2>
+						<h2>{"$" + element.price + ".00"}</h2>
+						<div className="shopping-cart-button-container">
+							<button className="shopping-cart-button" onClick={() => this.props.removeFromShoppingCart(element)}>Remove From Shopping Cart</button>
+						</div>
+					</div>
+				</div>
+			)
         })
         return (
             <div className="shopping-cart-container">

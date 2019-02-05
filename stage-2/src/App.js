@@ -20,10 +20,11 @@ class App extends Component {
   }
 
   addToShoppingCart(product) {
+	  var {shoppingCart} = this.state;
+	  shoppingCart.push(product);
     this.setState({
-      shoppingCart: [...this.state.shoppingCart, product]
+      shoppingCart
     })
-    console.log(this.state.shoppingCart);
   }
 
   removeFromShoppingCart(product) {
